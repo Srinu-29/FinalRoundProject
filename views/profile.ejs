@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f9fafb;
+        }
+        .profile-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .profile-header {
+            height: 120px;
+            background: linear-gradient(to right, #3b82f6, #2563eb);
+        }
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border: 5px solid white;
+            margin-top: -75px;
+        }
+        .edit-btn:hover {
+            background-color: #1d4ed8;
+        }
+        .field-label {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+        .field-value {
+            font-size: 1rem;
+            color: #1f2937;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+   <!-- Navbar -->
+<nav class="navbar shadow-md text-white p-4" style="background: linear-gradient(to right, #3b82f6, #6d28d9);">
+    <div class="container mx-auto flex justify-between items-center">
+         <div class="text-xl font-bold">Tech-Learn</div>
+        <div class="flex items-center space-x-6">
+            <a href="/dashboard" class="hover:text-blue-300 transition flex items-center">
+                <i class="fas fa-tachometer-alt mr-1"></i> Dashboard
+            </a>
+            
+            <a href="/profile" class="hover:text-blue-300 transition flex items-center">
+                <i class="fas fa-user mr-1"></i> Profile
+            </a>
+            <a href="/logout" class="hover:text-blue-300 transition flex items-center">
+                <i class="fas fa-sign-out-alt mr-1"></i> Logout
+            </a>
+        </div>
+    </div>
+</nav>
+
+    <!-- Profile Content -->
+    <div class="container mx-auto px-4 py-8">
+        <div class="profile-container bg-white rounded-lg overflow-hidden">
+            <!-- Profile Header -->
+            <div class="profile-header"></div>
+            
+            <!-- Profile Info Section -->
+            <div class="px-6 pt-0 pb-6">
+                <div class="flex flex-col md:flex-row">
+                    <!-- Profile Image -->
+                    <div class="flex flex-col items-center md:items-start md:w-1/3">
+                        <div class="profile-image rounded-full overflow-hidden bg-gray-200 flex items-center justify-center">
+                            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="Profile" class="w-full h-full object-cover">
+                        </div>
+                        <button class="mt-4 edit-btn bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition flex items-center">
+                            <i class="fas fa-camera mr-2"></i> Change Photo
+                        </button>
+                    </div>
+                    
+                    <!-- User Details -->
+                    <div class="mt-6 md:mt-0 md:w-2/3">
+                        
+                        
+                        <!-- Profile Info Cards -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                            <!-- Username -->
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <div class="field-label mb-1">
+                                    <i class="fas fa-user-tag mr-2 text-blue-500"></i>Username
+                                </div>
+                                <div class="field-value" id="username-field"><%=Username%></div>
+                            </div>
+                            
+                            <!-- Email -->
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <div class="field-label mb-1">
+                                    <i class="fas fa-envelope mr-2 text-blue-500"></i>Email
+                                </div>
+                                <div class="field-value" id="email-field"><%=Email%></div>
+                            </div>
+                            
+                            <!-- Mobile Number -->
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <div class="field-label mb-1">
+                                    <i class="fas fa-phone mr-2 text-blue-500"></i>Mobile Number
+                                </div>
+                                <div class="field-value" id="mobile-field"><%= MN %></div>
+                            </div>
+                            
+                            <!-- Member Since -->
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <div class="field-label mb-1">
+                                    <i class="fas fa-calendar-alt mr-2 text-blue-500"></i>Member Since
+                                </div>
+                                <div class="field-value" id="member-since"><%=createdAt%></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Additional Information -->
+                         <div class="container mx-auto px-4 py-8">
+  <% if (error) { %>
+    <p class="text-red-600 mb-4"><%= error %></p>
+  <% } %>
+  <% if (message) { %>
+    <p class="text-green-600 mb-4"><%= message %></p>
+  <% } %>
+
+  <h1 class="text-2xl font-bold mb-4">Your Profile</h1>
+  <p class="text-gray-600 mb-4">
+  
+  <% if (!bio) { %>
+   Bio: No bio set yet
+  <% }%>
+
+</p>
+
+  <div class="bg-gray-50 p-4 rounded-lg">
+    <form action="/profile/Bioupdate" method="POST">
+      <textarea 
+        name="bio"
+        placeholder="Give a short Description about YOU" 
+        class="w-full h-32 p-4 text-lg border rounded-md focus:outline-none focus:ring focus:ring-indigo-200 resize-y"
+      ><%= bio %></textarea>
+      <button 
+        type="submit"
+        class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition mt-2"
+      >
+        Update my Bio
+      </button>
+    </form>
+  </div>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Stats Section -->
+        <div class="mt-8 bg-white rounded-lg shadow p-6">
+            <h2 class="text-xl font-bold text-gray-800 mb-4">Your Progress</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-blue-50 p-4 rounded-lg text-center">
+                    <div class="text-3xl font-bold text-blue-600">24</div>
+                    <div class="text-sm text-gray-600">Completed Exercises</div>
+                </div>
+                <div class="bg-green-50 p-4 rounded-lg text-center">
+                    <div class="text-3xl font-bold text-green-600">85%</div>
+                    <div class="text-sm text-gray-600">Average Success Rate</div>
+                </div>
+                <div class="bg-purple-50 p-4 rounded-lg text-center">
+                    <div class="text-3xl font-bold text-purple-600">12</div>
+                    <div class="text-sm text-gray-600">Current Streak</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-6 mt-12">
+        <div class="container mx-auto px-4 text-center">
+            <p>© 2025  TechLearn Solutions. All rights reserved.</p>
+            <div class="mt-2 flex justify-center space-x-4">
+                <a href="#" class="text-gray-300 hover:text-white"><i class="fab fa-github"></i></a>
+                <a href="#" class="text-gray-300 hover:text-white"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="text-gray-300 hover:text-white"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Client-side JavaScript for profile page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Fetch user data from server (in a real app)
+            // For this demo, we'll simulate data that would come from the server
+            
+            // Example user data (in a real app, this would come from an API request)
+           
+            
+        });
+    </script>
+
+    <!-- 
+    Server-side code (Node.js/Express) - For reference only
+    This would go in your server.js file:
+
+    const express = require('express');
+    const app = express();
+    const path = require('path');
+
+    // Set EJS as templating engine
+    app.set('view engine', 'ejs');
+    app.set('views', path.join(__dirname, 'views'));
+    app.use(express.static(path.join(__dirname, 'public')));
+
+    // Sample middleware to simulate authenticated user
+    app.use((req, res, next) => {
+        req.user = {
+            id: 1,
+            name: "John Doe",
+            username: "johndoe_coder",
+            email: "john.doe@example.com",
+            mobile: "+1 (555) 123-4567",
+            memberSince: "January 15, 2023",
+            bio: "Passionate software developer with 5+ years of experience in web development. Always eager to learn new technologies and tackle challenging problems. Currently focused on improving my skills in data structures and algorithms.",
+            profileImage: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+        };
+        next();
+    });
+
+    // Profile route
+    app.get('/profile', (req, res) => {
+        // In a real app, you would fetch user data from database
+        const userData = req.user;
+        res.render('profile', { user: userData });
+    });
+
+    // Dashboard route
+    app.get('/dashboard', (req, res) => {
+        res.render('dashboard', { user: req.user });
+    });
+
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`);
+    });
+    -->
+</body>
+</html>

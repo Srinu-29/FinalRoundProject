@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tech-Learn - Exercise</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <!-- CodeMirror Styles -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.css" />
+  <style>
+    /* Custom styles to match the image */
+    .tab {
+      @apply px-4 py-2 bg-gray-200 text-gray-700 font-semibold cursor-pointer;
+    }
+    .tab.active {
+      @apply bg-gray-800 text-white;
+    }
+    .editor-container {
+      display: none;
+    }
+    .editor-container.active {
+      display: block;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col bg-gray-100">
+
+  <!-- Navbar -->
+  <nav class="bg-indigo-600 text-white p-4">
+    <div class="container mx-auto flex justify-between items-center">
+      <div class="text-xl font-bold">tls</div>
+      <div class="flex space-x-4">
+        <a href="/dashboard" class="hover:text-indigo-300">Dashboard</a>
+        <a href="/profile" class="hover:text-indigo-300">Profile</a>
+        <a href="/logout" class="hover:text-indigo-300">Sign out</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="container mx-auto px-4 py-8 flex-grow">
+    <h1 class="text-2xl font-bold mb-4">
+      Exercise:
+      <%let v=0;%>
+      <% modules.forEach(m => { %>
+        <% v=v+1 %>
+        <% if (m.id === M_id) { %>
+            <%=v%>
+            <%= m.name %>
+            
+          
+
+        
+    </h1>
+
+    <div class="grid md:grid-cols-2 gap-6">
+      <!-- Left Side: Question and Theory -->
+      <div>
+        <div class="mb-6">
+          <h2 class="text-xl font-bold mb-2"> <p><%=m.description%></p></h2>
+         
+        </div>
+        <% } %>
+      <% }); %>
+        <div class="bg-white p-4 rounded-lg shadow">
+          <h2 class="text-xl font-bold mb-2">Theory</h2>
+          <p class="mb-2">HTML structures your content; CSS styles it. Combine them to build styled, structured webpages.</p>
+          <pre class="bg-gray-100 p-2 rounded">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;My Page&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;!-- Your content here --&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+          </pre>
+        </div>
+      </div>
+
+      <!-- Right Side: Editor and Preview -->
+      <div class="bg-white p-6 rounded-lg shadow">
+        <!-- Tabs for Editors -->
+        <div class="flex space-x-2 mb-4">
+          <button class="tab active" onclick="showEditor('html')">HTML</button>
+          <button class="tab" onclick="showEditor('css')">CSS</button>
+          <button class="tab" onclick="showEditor('js')">JS</button>
+        </div>
+
+        <!-- Editors -->
+        <form action="/Exercise/submit" method="POST" onsubmit="return submitExercise()">
+  <!-- HTML Editor -->
+  <div id="htmlEditorContainer" class="editor-container active">
+    <textarea id="htmlEditor" class="w-full"><%=codes.htmlcode%></textarea>
+    <input type="hidden" name="htmlcode">
+  </div>
+
+  <!-- CSS Editor -->
+  <div id="cssEditorContainer" class="editor-container">
+    
+    <textarea id="cssEditor" class="w-full"><%=codes.csscode%></textarea>
+    <input type="hidden" name="csscode">
+  </div>
+
+  <!-- JS Editor -->
+  <div id="jsEditorContainer" class="editor-container">
+    <textarea id="jsEditor" class="w-full"><%=codes.jscode%></textarea>
+    <input type="hidden" name="jscode">
+  </div>
+
+  <!-- Module & User IDs -->
+  <input type="hidden" id="userId" name="userId" value="<%= userId %>">
+  <input type="hidden" id="moduleId" name="moduleId" value="<%= M_id %>">
+
+  <!-- Buttons -->
+  <div class="flex space-x-2 mb-4">
+    <button type="button" onclick="updateOutput()" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+      Run
+    </button>
+    <span class="px-4 py-2 bg-gray-200 text-gray-700 rounded">Live Preview</span>
+  </div>
+
+  <div class="mb-4">
+    <iframe id="output" class="w-full h-64 border rounded"></iframe>
+  </div>
+
+  <!-- Submit Buttons -->
+   <!-- <form action="/Exercise/SaveProgress" method="post"> -->
+  <div class="flex space-x-2">
+    <form action="/Exercise/SaveProgress" method="post">
+  <button type="submit" onsubmit="saveProgress()" class="px-4 py-2 bg-blue-800 text-white rounded hover:bg-blue-900">
+      Save Progress
+    </button>
+<!-- </form> -->
+  </form>
+    <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">
+      Submit
+    </button>
+  </div>
+</form>
+
+
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white text-center py-4">
+    <div class="container mx-auto">
+      <div class="flex justify-between items-center">
+        <div class="text-xl font-bold">tls</div>
+        <div>
+          <p>Contact Us</p>
+          <p>info@techlearn.com</p>
+          <p>+1 (123) 456-7890</p>
+        </div>
+      </div>
+      <p class="mt-2">Empowering the next generation of developers.</p>
+      <p class="mt-2">© 2025 Tech-Learn Solutions. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <!-- CodeMirror Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/xml/xml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/css/css.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/javascript/javascript.min.js"></script>
+
+  <script>
+    const htmlEditor = CodeMirror.fromTextArea(document.getElementById("htmlEditor"), {
+      mode: "xml", lineNumbers: true
+    });
+    const cssEditor = CodeMirror.fromTextArea(document.getElementById("cssEditor"), {
+      mode: "css", lineNumbers: true
+    });
+    const jsEditor = CodeMirror.fromTextArea(document.getElementById("jsEditor"), {
+      mode: "javascript", lineNumbers: true
+    });
+
+    function updateOutput() {
+      const html = htmlEditor.getValue();
+      const css = `<style>${cssEditor.getValue()}</style>`;
+      const js = `<script>${jsEditor.getValue()}<\/script>`;
+      const frame = document.getElementById('output').contentWindow.document;
+      frame.open();
+      frame.write(html + css + js);
+      frame.close();
+    }
+
+    htmlEditor.on("change", updateOutput);
+    cssEditor.on("change", updateOutput);
+    jsEditor.on("change", updateOutput);
+
+    // Tab switching logic
+    function showEditor(type) {
+      const editors = ['html', 'css', 'js'];
+      editors.forEach(editor => {
+        const container = document.getElementById(`${editor}EditorContainer`);
+        const tab = document.querySelector(`button[onclick="showEditor('${editor}')"]`);
+        if (editor === type) {
+          container.classList.add('active');
+          tab.classList.add('active');
+        } else {
+          container.classList.remove('active');
+          tab.classList.remove('active');
+        }
+      });
+    }
+    
+     function submitExercise() {
+  const html = htmlEditor.getValue();
+  const css = cssEditor.getValue();
+  const js = jsEditor.getValue();
+
+  // Assign to hidden fields
+  document.querySelector('input[name="htmlcode"]').value = html;
+  document.querySelector('input[name="csscode"]').value = css;
+  document.querySelector('input[name="jscode"]').value = js;
+  
+    return true; // Allow form to submit
+}
+
+    async function saveProgress() {
+      const userId = document.getElementById("userId").value;
+      const moduleId = document.getElementById("moduleId").value;
+      const html = htmlEditor.getValue();
+      const css = cssEditor.getValue();
+      const js = jsEditor.getValue();
+
+      try {
+        const res = await fetch('/Exercise/saveProgress', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ userId, moduleId, html, css, js })
+,
+        });
+        const result =  res.json();
+        console.log("Inside sasavve eprpr")
+        if (res.ok) {
+          alert("Progress saved successfully!");
+        } else {
+          alert(result.error || "Failed to save progress.");
+        }
+      } catch (err) {
+        alert("Network error. Please try again.");
+      }
+    }
+  </script>
+</body>
+</html>
