@@ -8,7 +8,160 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.css">
-  <link rel="stylesheet" href="./styles.css">
+  <style>
+    :root {
+      --primary: #070054;
+      --accent: #d9d9d9;
+      --light: #ffffff;
+      --dark: #121212;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--light);
+      color: #000000;
+      transition: background-color 0.3s ease;
+    }
+
+    .dark body {
+      background-color: var(--dark);
+      color: #e0e0e0;
+    }
+
+    .navbar {
+      background-color: var(--primary);
+    }
+
+    .tab {
+      @apply px-4 py-2 bg-gray-200 text-gray-700 font-semibold rounded-t-md cursor-pointer transition;
+    }
+
+    .tab.active {
+      @apply bg-primary text-white;
+    }
+
+    .editor-container {
+      display: none;
+    }
+
+    .editor-container.active {
+      display: block;
+    }
+
+    .CodeMirror {
+      min-height: 400px;
+      height: auto;
+      border: 1px solid var(--accent);
+      border-radius: 4px;
+      font-size: 14px;
+      background-color: var(--light);
+      transition: background-color 0.3s ease;
+    }
+
+    .dark .CodeMirror {
+      background-color: #1e1e1e;
+      color: #e0e0e0;
+    }
+
+    #output {
+      min-height: 400px;
+      width: 100%;
+      border: 1px solid var(--accent);
+      border-radius: 4px;
+      background-color: var(--light);
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: #ffffff;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: #05003f;
+    }
+
+    .btn-secondary {
+      background-color: var(--accent);
+      color: #000000;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+      background-color: #c0c0c0;
+    }
+
+    .theme-switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 30px;
+    }
+
+    .theme-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: var(--accent);
+      transition: .4s;
+      border-radius: 30px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 22px;
+      width: 22px;
+      left: 4px;
+      bottom: 4px;
+      background-color: var(--light);
+      transition: .4s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: var(--primary);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(30px);
+    }
+
+    .split-container {
+      display: flex;
+      gap: 1rem;
+      position: relative;
+    }
+
+    .split-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      height: 100%;
+      width: 2px;
+      background-color: var(--accent);
+      opacity: 0.5;
+    }
+
+    @media (max-width: 768px) {
+      .split-container {
+        flex-direction: column;
+      }
+      .split-container::before {
+        display: none;
+      }
+    }
+  </style>
 </head>
 <body class="min-h-screen flex flex-col">
   <!-- Navbar -->
