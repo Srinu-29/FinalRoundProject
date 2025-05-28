@@ -11,6 +11,7 @@ const { render } = require('ejs');
 const user = require('./models/user');
 
 const app = express();
+app.use(express.static(path.join(__dirname, 'public')));
 
 // --- Configuration (No .env) ---
 const MONGODB_URI = "mongodb+srv://bram83015:Srinivas1234@cluster0.ngixfji.mongodb.net/authsystem"; // <-- Replace with your actual URI
@@ -612,6 +613,7 @@ app.post("/Exercise/saveProgress", async (req, res) => {
     console.log("HTML:", req.body.htmlcode);
 console.log("CSS:", req.body.csscode);
 console.log("JS:", req.body.jscode);
+const action="started";
 
     // Validate required fields
     console.log("inside exercise/saveprogress");
@@ -631,13 +633,13 @@ console.log("JS:", req.body.jscode);
       module = {
         moduleId,
         codes: { htmlcode, csscode, jscode },
-        ModuleCompleted: "completed"
+        ModuleCompleted: action === "submit" ? "completed" : "started"
       };
       user.modules.push(module);
     } else {
       // Update existing module
       module.codes = { htmlcode, csscode, jscode };
-      module.ModuleCompleted = "completed";
+      module.ModuleCompleted = action === "submit" ? "completed" : "started"
     }
 
     await user.save();

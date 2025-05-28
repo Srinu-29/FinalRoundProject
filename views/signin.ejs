@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Code Academy - Sign In / Sign Up</title>
+    <title>Tech-Learn - Sign In / Sign Up</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
@@ -20,8 +20,11 @@
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
         }
         .tab-active {
-            border-bottom: 2px solid #4f46e5;
-            color: #4f46e5;
+            border-bottom: 2px solid #070054;
+            color: #070054;
+        }
+        .tab-inactive {
+            color: #070054;
         }
         .input-field {
             transition: border 0.3s ease;
@@ -30,11 +33,11 @@
             border-color: #4f46e5;
         }
         .btn-primary {
-            background-color: #4f46e5;
+            background-color: #070054;
             transition: all 0.3s ease;
         }
         .btn-primary:hover {
-            background-color: #4338ca;
+            background-color: #05003f;
             transform: translateY(-2px);
         }
         .error-message {
@@ -56,13 +59,16 @@
             transform: translateY(-50%);
             cursor: pointer;
         }
+        .tech-learn {
+            color: #070054;
+        }
     </style>
 </head>
 <body>
     <div class="min-h-screen flex flex-col items-center justify-center px-4 py-12">
         <!-- Logo and Header -->
         <div class="text-center mb-10">
-            <h1 class="text-4xl font-bold text-indigo-600">Tech Learn<span class="text-gray-800">Solutions</span></h1>
+            <h1 class="text-4xl font-bold"><span class="tech-learn">TechLearn</span> <span class="text-gray-800">Solutions</span></h1>
             <p class="mt-3 text-gray-600">Master coding with interactive exercises</p>
         </div>
 
@@ -70,10 +76,10 @@
         <div class="form-container bg-white rounded-lg p-8 w-full max-w-md">
             <!-- Tabs -->
             <div class="flex border-b mb-6">
-                <button id="signin-tab" class="flex-1 py-3 font-medium text-center focus:outline-none <%= !locals.signupError ? 'tab-active' : 'text-gray-500' %>">
+                <button id="signin-tab" class="flex-1 py-3 font-medium text-center focus:outline-none <%= !locals.signupError ? 'tab-active' : 'tab-inactive' %>">
                     Sign In
                 </button>
-                <button id="signup-tab" class="flex-1 py-3 font-medium text-center focus:outline-none <%= locals.signupError ? 'tab-active' : 'text-gray-500' %>">
+                <button id="signup-tab" class="flex-1 py-3 font-medium text-center focus:outline-none <%= locals.signupError ? 'tab-active' : 'tab-inactive' %>">
                     Sign Up
                 </button>
             </div>
@@ -200,7 +206,7 @@
 
         <!-- Footer -->
         <div class="mt-10 text-center text-gray-500 text-sm">
-            <p>© Tech Learn 2025 . All rights reserved.</p>
+            <p>© TechLearn Solutions 2025. All rights reserved.</p>
         </div>
     </div>
 
@@ -211,8 +217,8 @@
             document.getElementById('signup-form').classList.add('hidden');
             document.getElementById('signin-tab').classList.add('tab-active');
             document.getElementById('signup-tab').classList.remove('tab-active');
-            document.getElementById('signup-tab').classList.add('text-gray-500');
-            document.getElementById('signin-tab').classList.remove('text-gray-500');
+            document.getElementById('signup-tab').classList.add('tab-inactive');
+            document.getElementById('signin-tab').classList.remove('tab-inactive');
         });
 
         document.getElementById('signup-tab').addEventListener('click', function() {
@@ -220,8 +226,8 @@
             document.getElementById('signin-form').classList.add('hidden');
             document.getElementById('signup-tab').classList.add('tab-active');
             document.getElementById('signin-tab').classList.remove('tab-active');
-            document.getElementById('signin-tab').classList.add('text-gray-500');
-            document.getElementById('signup-tab').classList.remove('text-gray-500');
+            document.getElementById('signin-tab').classList.add('tab-inactive');
+            document.getElementById('signup-tab').classList.remove('tab-inactive');
         });
 
         // Toggle password visibility
@@ -275,9 +281,6 @@
 
             if (!isValid) {
                 e.preventDefault();
-                console.log('Sign in form validation failed');
-            } else {
-                console.log('Sign in form validated successfully');
             }
         });
 
@@ -291,7 +294,6 @@
             const password = document.getElementById('signup-password').value;
             const confirmPassword = document.getElementById('confirm-password').value;
 
-            // First Name validation
             if (!firstName.trim()) {
                 document.getElementById('first-name-error').style.display = 'block';
                 isValid = false;
@@ -299,7 +301,6 @@
                 document.getElementById('first-name-error').style.display = 'none';
             }
 
-            // Email validation
             if (!validateEmail(email)) {
                 document.getElementById('signup-email-error').style.display = 'block';
                 isValid = false;
@@ -307,7 +308,6 @@
                 document.getElementById('signup-email-error').style.display = 'none';
             }
 
-            // Mobile Number validation
             if (!validateMobile(mobileNumber)) {
                 document.getElementById('mobile-number-error').style.display = 'block';
                 isValid = false;
@@ -315,12 +315,10 @@
                 document.getElementById('mobile-number-error').style.display = 'none';
             }
 
-            // Gender validation
             if (!gender) {
                 isValid = false;
             }
 
-            // Password validation
             const passwordErrors = [];
             if (password.length < 8) passwordErrors.push("Password must be at least 8 characters");
             if (!/[a-z]/.test(password)) passwordErrors.push("Password must contain at least 1 lowercase letter");
@@ -338,9 +336,6 @@
 
             if (!isValid) {
                 e.preventDefault();
-                console.log('Sign up form validation failed');
-            } else {
-                console.log('Sign up form validated successfully');
             }
         });
 

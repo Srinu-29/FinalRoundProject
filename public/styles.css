@@ -1,0 +1,323 @@
+ /* dashboard css */
+ body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #ffffff; /* White background */
+            color: #000000; /* Black text */
+        }
+        .exercise-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left-color: #070054; /* Primary deep blue */
+        }
+        .exercise-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(7, 0, 84, 0.1); /* Shadow with primary color tint */
+        }
+        .navbar {
+            background-color: #070054; /* Primary deep blue */
+        }
+        .progress-bar {
+            height: 8px;
+            border-radius: 4px;
+            background-color: #d9d9d9; /* Accent light grey */
+        }
+        .progress-bar .filled {
+            background-color: #070054; /* Primary deep blue */
+        }
+        .module-card {
+            border: 1px solid #d9d9d9; /* Accent light grey */
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: #ffffff; /* White background */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .status-completed {
+            background: #070054; /* Primary deep blue */
+            color: #ffffff; /* White text */
+            padding: 0.25rem 0.5rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+        }
+        .status-in-progress {
+            background: #d9d9d9; /* Accent light grey */
+            color: #000000; /* Black text */
+            padding: 0.25rem 0.5rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+        }
+        .btn-primary {
+            background-color: #070054; /* Primary deep blue */
+            color: #ffffff; /* White text */
+        }
+        .btn-primary:hover {
+            background-color: #05003f; /* Slightly darker deep blue */
+        }
+        .tag {
+            background-color: #d9d9d9; /* Accent light grey */
+            color: #000000; /* Black text */
+        }
+        :root {
+      --primary: #070054;
+      --accent: #d9d9d9;
+      --light: #ffffff;
+      --dark: #121212;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--light);
+      color: #000000;
+      transition: background-color 0.3s ease;
+    }
+
+    .dark body {
+      background-color: var(--dark);
+      color: #e0e0e0;
+    }
+
+    .navbar {
+      background-color: var(--primary);
+    }
+
+    .tab {
+      @apply px-4 py-2 bg-gray-200 text-gray-700 font-semibold rounded-t-md cursor-pointer transition;
+    }
+
+    .tab.active {
+      @apply bg-primary text-white;
+    }
+
+    .editor-container {
+      display: none;
+    }
+
+    .editor-container.active {
+      display: block;
+    }
+
+    .CodeMirror {
+      min-height: 400px;
+      height: auto;
+      border: 1px solid var(--accent);
+      border-radius: 4px;
+      font-size: 14px;
+      background-color: var(--light);
+      transition: background-color 0.3s ease;
+    }
+
+    .dark .CodeMirror {
+      background-color: #1e1e1e;
+      color: #e0e0e0;
+    }
+
+    #output {
+      min-height: 400px;
+      width: 100%;
+      border: 1px solid var(--accent);
+      border-radius: 4px;
+      background-color: var(--light);
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: #ffffff;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: #05003f;
+    }
+
+    .btn-secondary {
+      background-color: var(--accent);
+      color: #000000;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+      background-color: #c0c0c0;
+    }
+
+    .theme-switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 30px;
+    }
+
+    .theme-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: var(--accent);
+      transition: .4s;
+      border-radius: 30px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 22px;
+      width: 22px;
+      left: 4px;
+      bottom: 4px;
+      background-color: var(--light);
+      transition: .4s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: var(--primary);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(30px);
+    }
+
+    .split-container {
+      display: flex;
+      gap: 1rem;
+      position: relative;
+    }
+
+    .split-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      height: 100%;
+      width: 2px;
+      background-color: var(--accent);
+      opacity: 0.5;
+    }
+
+    @media (max-width: 768px) {
+      .split-container {
+        flex-direction: column;
+      }
+      .split-container::before {
+        display: none;
+      }
+    }
+    /* styles of profile Section */
+    
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #ffffff; /* White background */
+            color: #000000; /* Black text */
+        }
+        .profile-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            box-shadow: 0 4px 6px rgba(7, 0, 84, 0.1); /* Shadow with primary color tint */
+        }
+        .profile-header {
+            height: 120px;
+            background: #070054; /* Primary deep blue */
+        }
+        .profile-icon {
+            width: 150px;
+            height: 150px;
+            border: 5px solid #ffffff; /* White border */
+            margin-top: -75px;
+            background-color: #d9d9d9; /* Accent light grey */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #070054; /* Primary deep blue */
+        }
+        .field-label {
+            font-size: 0.875rem;
+            color: #6b7280; /* Keep gray for labels */
+        }
+        .field-value {
+            font-size: 1rem;
+            color: #000000; /* Black text */
+            font-weight: 500;
+        }
+        .bio-container {
+            background-color: #d9d9d9; /* Accent light grey */
+        }
+        .bio-textarea {
+            background-color: #ffffff; /* White background */
+            color: #000000; /* Black text */
+        }
+        .bio-button {
+            background-color: #070054; /* Primary deep blue */
+            color: #ffffff; /* White text */
+        }
+        .bio-button:hover {
+            background-color: #05003f; /* Slightly darker deep blue */
+        }
+        .stats-card {
+            background-color: #d9d9d9; /* Accent light grey */
+            color: #000000; /* Black text */
+        }
+        /* /signin styles */
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f9fafb;
+        }
+        .form-container {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        .form-container:hover {
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        .tab-active {
+            border-bottom: 2px solid #070054;
+            color: #070054;
+        }
+        .tab-inactive {
+            color: #070054;
+        }
+        .input-field {
+            transition: border 0.3s ease;
+        }
+        .input-field:focus {
+            border-color: #4f46e5;
+        }
+        .btn-primary {
+            background-color: #070054;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #05003f;
+            transform: translateY(-2px);
+        }
+        .error-message {
+            display: none;
+            color: #dc2626;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+        .error {
+            color: #dc2626;
+        }
+        .relative {
+            position: relative;
+        }
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+        .tech-learn {
+            color: #070054;
+        }
+    
+    

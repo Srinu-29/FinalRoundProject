@@ -7,102 +7,54 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f8f9fa;
-        }
-        .exercise-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .exercise-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-        .navbar {
-            background-color: #4f46e5;
-        }
-        .progress-bar {
-            height: 8px;
-            border-radius: 4px;
-        }
-        .module-card {
-      border: 1px solid #e5e7eb;
-      border-radius: 0.5rem;
-      padding: 1rem;
-      margin-bottom: 1rem;
-      background: white;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-    .status-completed {
-      background: #d1fae5;
-      color: #10b981;
-      padding: 0.25rem 0.5rem;
-      border-radius: 9999px;
-      font-size: 0.875rem;
-    }
-    .status-in-progress {
-      background: #fef3c7;
-      color: #d97706;
-      padding: 0.25rem 0.5rem;
-      border-radius: 9999px;
-      font-size: 0.875rem;
-    }
- 
-    </style>
+    
+    <link rel="stylesheet" href="./styles.css">
 </head>
 <body class="min-h-screen flex flex-col">
     <!-- Navbar -->
-    <!-- Navbar -->
-<nav class="navbar shadow-md text-white p-4" style="background: linear-gradient(to right, #3b82f6, #6d28d9);">
-    <div class="container mx-auto flex justify-between items-center">
-         <div class="text-xl font-bold">Tech-Learn</div>
-        <div class="flex items-center space-x-6">
-            <a href="/dashboard" class="hover:text-blue-300 transition flex items-center">
-                <i class="fas fa-tachometer-alt mr-1"></i> Dashboard
-            
-            <a href="./profile" class="hover:text-blue-300 transition flex items-center">
-                <i class="fas fa-user mr-1"></i> Profile
-            </a>
-            <a href="/logout" class="hover:text-blue-300 transition flex items-center">
-                <i class="fas fa-sign-out-alt mr-1"></i> Logout
-            </a>
+    <nav class="navbar shadow-md text-white p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="text-xl font-bold">Tech-Learn</div>
+            <div class="flex items-center space-x-6">
+                <a href="/dashboard" class="hover:text-gray-300 transition flex items-center">
+                    <i class="fas fa-tachometer-alt mr-1"></i> Dashboard
+                </a>
+                <a href="./profile" class="hover:text-gray-300 transition flex items-center">
+                    <i class="fas fa-user mr-1"></i> Profile
+                </a>
+                <a href="/logout" class="hover:text-gray-300 transition flex items-center">
+                    <i class="fas fa-sign-out-alt mr-1"></i> Logout
+                </a>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
 
     <!-- Main Content -->
-     
-
     <div class="container mx-auto px-4 py-8 flex-grow">
         <!-- User Profile Section -->
         <div class="bg-white rounded-lg shadow-md p-6 mb-8">
             <div class="flex flex-col md:flex-row items-center">
-                <div class="w-24 h-24 bg-indigo-100 rounded-full flex items-center justify-center text-3xl text-indigo-600 font-bold mb-4 md:mb-0 md:mr-6">
+                <div class="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center text-3xl text-black font-bold mb-4 md:mb-0 md:mr-6">
                     JS
                 </div>
                 <div class="md:flex-1">
                     <h1 class="text-2xl font-bold"><%=Username%></h1>
                     <p class="text-gray-600 mb-2">Web Developer</p>
                     <p class="text-gray-700 mb-4">Passionate about creating user-friendly interfaces and solving complex problems with clean code.</p>
-                    
                     <div class="mb-4">
-  <div class="mb-4">
-  <div class="flex justify-between mb-1">
-    <span class="text-sm font-medium">Your Progress</span>
-    <span class="text-sm font-medium"><%= progressPercentage %>%</span>
-  </div>
-  <div class="w-full bg-gray-200 rounded-full h-2.5">
-    <div class="bg-indigo-600 h-2.5 rounded-full" style="width: <%= progressPercentage %>%;"></div>
-  </div>
-</div>
-</div>
-                    
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm font-medium">Your Progress</span>
+                            <span class="text-sm font-medium"><%= progressPercentage %>%</span>
+                        </div>
+                        <div class="progress-bar w-full rounded-full h-2.5">
+                            <div class="filled h-2.5 rounded-full" style="width: <%= progressPercentage %>%;"></div>
+                        </div>
+                    </div>
                     <div class="flex flex-wrap gap-2">
-                        <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">HTML</span>
-                        <span class="bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-0.5 rounded">CSS</span>
-                        <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">JavaScript</span>
-                        <span class="bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded">React</span>
+                        <span class="tag text-xs font-medium px-2.5 py-0.5 rounded">HTML</span>
+                        <span class="tag text-xs font-medium px-2.5 py-0.5 rounded">CSS</span>
+                        <span class="tag text-xs font-medium px-2.5 py-0.5 rounded">JavaScript</span>
+                        <span class="tag text-xs font-medium px-2.5 py-0.5 rounded">React</span>
                     </div>
                 </div>
                 <div class="md:w-1/4 mt-4 md:mt-0">
@@ -110,19 +62,19 @@
                         <div class="text-lg font-semibold">Statistics</div>
                         <div class="grid grid-cols-2 gap-2 mt-2">
                             <div class="bg-white p-2 rounded shadow-sm">
-                                <div class="text-2xl font-bold text-indigo-600"><%=completedModules%></div>
+                                <div class="text-2xl font-bold text-black"><%=completedModules%></div>
                                 <div class="text-xs text-gray-500">Completed</div>
                             </div>
                             <div class="bg-white p-2 rounded shadow-sm">
-                                <div class="text-2xl font-bold text-indigo-600"><%=remainingModules%></div>
+                                <div class="text-2xl font-bold text-black"><%=remainingModules%></div>
                                 <div class="text-xs text-gray-500">Remaining</div>
                             </div>
                             <div class="bg-white p-2 rounded shadow-sm">
-                                <div class="text-2xl font-bold text-indigo-600"><%=daysActive%></div>
+                                <div class="text-2xl font-bold text-black"><%=daysActive%></div>
                                 <div class="text-xs text-gray-500">Days Active</div>
                             </div>
                             <div class="bg-white p-2 rounded shadow-sm">
-                                <div class="text-2xl font-bold text-indigo-600"><%=streak%></div>
+                                <div class="text-2xl font-bold text-black"><%=streak%></div>
                                 <div class="text-xs text-gray-500">Streak</div>
                             </div>
                         </div>
@@ -132,64 +84,58 @@
         </div>
 
         <!-- Exercises Section -->
-         <%let  h=0;%>
+        <%let h=0;%>
         <% allModules.forEach(module => { %>
             <% h=h+1;%>
-  <div class="exercise-card bg-white rounded-lg shadow-md overflow-hidden border-l-4 border-gray-300">
-    <div class="p-5">
-      <div class="flex justify-between items-start">
-        <h3 class="font-bold text-lg mb-2"><%=h%>.
-            <%= module.name %></h3>
-        <span class="bg-gray-100 text-gray-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">
-          
-        </span>
-      </div>
-      <p class="text-gray-600 mb-4"><%= module.description %></p>
-      <div class="flex justify-between items-center">
-        <span class="text-sm text-gray-500">
-          <i class="far fa-clock mr-1"></i> <%= module.duration %>
-        </span>
-        <form action="/Exercise/<%=module.id%>" method="POST">
-  <input type="hidden" name="moduleId" value="<%= module.id %>">
-  <input type="hidden" name="userId" value="<%= userId %>">
-
-  <button type="submit"
-    class="px-4 py-2 rounded-md text-white bg-blue-600 hover:bg-blue-700">
-    Start
-  </button>
-</form>
-
-      </div>
-    </div>
-  </div>
-  <br>
-<% }); %>
-
+            <div class="exercise-card bg-white rounded-lg shadow-md overflow-hidden">
+                <div class="p-5">
+                    <div class="flex justify-between items-start">
+                        <h3 class="font-bold text-lg mb-2"><%=h%>. <%= module.name %></h3>
+                        <span class="status-<%= module.status %> text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">
+                            <%= module.status %>
+                        </span>
+                    </div>
+                    <p class="text-gray-600 mb-4"><%= module.description %></p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-500">
+                            <i class="far fa-clock mr-1"></i> <%= module.duration %>
+                        </span>
+                        <form action="/Exercise/<%=module.id%>" method="POST">
+                            <input type="hidden" name="moduleId" value="<%= module.id %>">
+                            <input type="hidden" name="userId" value="<%= userId %>">
+                            <button type="submit" class="btn-primary px-4 py-2 rounded-md">
+                                Start
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <br>
+        <% }); %>
 
         <!-- Recommendations Section -->
         <div class="mb-8">
             <h2 class="text-xl font-bold mb-6">Recommended Next Steps</h2>
-            
             <div class="bg-white rounded-lg shadow-md p-6">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div class="bg-indigo-50 p-4 rounded-lg">
-                        <div class="text-indigo-600 text-lg font-semibold mb-2">Complete JavaScript Basics</div>
+                    <div class="bg-gray-100 p-4 rounded-lg">
+                        <div class="text-black text-lg font-semibold mb-2">Complete JavaScript Basics</div>
                         <p class="text-gray-600 mb-3">You're almost there! Finish the current module to unlock more advanced topics.</p>
-                        <button class="w-full px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition">
+                        <button class="w-full btn-primary px-4 py-2 rounded-md">
                             Continue Learning
                         </button>
                     </div>
-                    <div class="bg-purple-50 p-4 rounded-lg">
-                        <div class="text-purple-600 text-lg font-semibold mb-2">Join Weekly Challenge</div>
+                    <div class="bg-gray-100 p-4 rounded-lg">
+                        <div class="text-black text-lg font-semibold mb-2">Join Weekly Challenge</div>
                         <p class="text-gray-600 mb-3">Test your skills against other students with our weekly coding challenges.</p>
-                        <button class="w-full px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition">
+                        <button class="w-full btn-primary px-4 py-2 rounded-md">
                             View Challenges
                         </button>
                     </div>
-                    <div class="bg-blue-50 p-4 rounded-lg">
-                        <div class="text-blue-600 text-lg font-semibold mb-2">Update Your Profile</div>
+                    <div class="bg-gray-100 p-4 rounded-lg">
+                        <div class="text-black text-lg font-semibold mb-2">Update Your Profile</div>
                         <p class="text-gray-600 mb-3">Add more details to your profile to personalize your learning journey.</p>
-                        <button class="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">
+                        <button class="w-full btn-primary px-4 py-2 rounded-md">
                             Edit Profile
                         </button>
                     </div>
@@ -199,11 +145,11 @@
     </div>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-8">
+    <footer class="bg-black text-white py-8">
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <div>
-                    <h3 class="text-lg font-semibold mb-4">CodeAcademy</h3>
+                    <h3 class="text-lg font-semibold mb-4">Tech-Learn</h3>
                     <p class="text-gray-400">Learning platform for coding enthusiasts to master web development skills through interactive exercises.</p>
                 </div>
                 <div>
@@ -234,21 +180,21 @@
                     </div>
                     <p class="text-gray-400">Subscribe to our newsletter</p>
                     <div class="flex mt-2">
-                        <input type="email" placeholder="Your email" class="px-4 py-2 rounded-l-md focus:outline-none" />
-                        <button class="bg-indigo-600 text-white px-4 py-2 rounded-r-md hover:bg-indigo-700">
+                        <input type="email" placeholder="Your email" class="px-4 py-2 rounded-l-md focus:outline-none bg-white text-black" />
+                        <button class="btn-primary px-4 py-2 rounded-r-md">
                             Subscribe
                         </button>
                     </div>
                 </div>
             </div>
             <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-400">
-                <p>&copy; 2025 TechLearn Solutions. all rights reserved.</p>
+                <p>© 2025 TechLearn Solutions. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
     <!-- JavaScript -->
-    <script>
+     <script>
         // This would normally be in an external file, but including here for the example
         document.addEventListener('DOMContentLoaded', () => {
             console.log('Dashboard loaded');

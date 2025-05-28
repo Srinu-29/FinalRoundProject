@@ -5,161 +5,155 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tech-Learn - Exercise</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <!-- CodeMirror Styles -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.css" />
-  <style>
-    /* Custom styles to match the image */
-    .tab {
-      @apply px-4 py-2 bg-gray-200 text-gray-700 font-semibold cursor-pointer;
-    }
-    .tab.active {
-      @apply bg-gray-800 text-white;
-    }
-    .editor-container {
-      display: none;
-    }
-    .editor-container.active {
-      display: block;
-    }
-  </style>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.css">
+  <link rel="stylesheet" href="./styles.css">
 </head>
-<body class="min-h-screen flex flex-col bg-gray-100">
-
+<body class="min-h-screen flex flex-col">
   <!-- Navbar -->
-  <nav class="bg-indigo-600 text-white p-4">
+  <nav class="navbar shadow-md text-white p-4">
     <div class="container mx-auto flex justify-between items-center">
-      <div class="text-xl font-bold">tls</div>
-      <div class="flex space-x-4">
-        <a href="/dashboard" class="hover:text-indigo-300">Dashboard</a>
-        <a href="/profile" class="hover:text-indigo-300">Profile</a>
-        <a href="/logout" class="hover:text-indigo-300">Sign out</a>
+      <div class="text-xl font-bold flex items-center">
+        <i class="fas fa-laptop-code mr-2"></i>
+        Tech-Learn
+      </div>
+      <div class="flex items-center space-x-6">
+        <a href="/dashboard" class="hover:text-gray-300 transition flex items-center">
+          <i class="fas fa-tachometer-alt mr-1"></i> Dashboard
+        </a>
+        <a href="/profile" class="hover:text-gray-300 transition flex items-center">
+          <i class="fas fa-user mr-1"></i> Profile
+        </a>
+        <div class="flex items-center">
+          <span class="mr-2 hidden sm:inline">Dark Mode</span>
+          <label class="theme-switch">
+            <input type="checkbox" id="theme-toggle">
+            <span class="slider"></span>
+          </label>
+        </div>
+        <a href="/logout" class="hover:text-gray-300 transition flex items-center">
+          <i class="fas fa-sign-out-alt mr-1"></i> Log out
+        </a>
       </div>
     </div>
   </nav>
 
   <!-- Main Content -->
   <main class="container mx-auto px-4 py-8 flex-grow">
-    <h1 class="text-2xl font-bold mb-4">
+    <h1 class="text-2xl font-bold mb-6 dark:text-white">
       Exercise:
-      <%let v=0;%>
-      <% modules.forEach(m => { %>
-        <% v=v+1 %>
-        <% if (m.id === M_id) { %>
-            <%=v%>
-            <%= m.name %>
-            
-          
-
-        
+      <% let v = 0; %>
+      <% modules.forEach(m => { v++; if (m.id === M_id) { %>
+        <%= v %>. <%= m.name %>
+      <% } }); %>
     </h1>
 
-    <div class="grid md:grid-cols-2 gap-6">
-      <!-- Left Side: Question and Theory -->
-      <div>
-        <div class="mb-6">
-          <h2 class="text-xl font-bold mb-2"> <p><%=m.description%></p></h2>
-         
-        </div>
-        <% } %>
-      <% }); %>
-        <div class="bg-white p-4 rounded-lg shadow">
-          <h2 class="text-xl font-bold mb-2">Theory</h2>
-          <p class="mb-2">HTML structures your content; CSS styles it. Combine them to build styled, structured webpages.</p>
-          <pre class="bg-gray-100 p-2 rounded">
-&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-  &lt;head&gt;
-    &lt;title&gt;My Page&lt;/title&gt;
-  &lt;/head&gt;
-  &lt;body&gt;
-    &lt;!-- Your content here --&gt;
-  &lt;/body&gt;
-&lt;/html&gt;
-          </pre>
-        </div>
-      </div>
-
-      <!-- Right Side: Editor and Preview -->
-      <div class="bg-white p-6 rounded-lg shadow">
-        <!-- Tabs for Editors -->
+    <div class="split-container">
+      <!-- Left Side: Editor -->
+      <div class="flex-1 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
         <div class="flex space-x-2 mb-4">
           <button class="tab active" onclick="showEditor('html')">HTML</button>
           <button class="tab" onclick="showEditor('css')">CSS</button>
-          <button class="tab" onclick="showEditor('js')">JS</button>
+          <button class="tab" onclick="showEditor('js')">JavaScript</button>
         </div>
 
-        <!-- Editors -->
         <form action="/Exercise/submit" method="POST" onsubmit="return submitExercise()">
-  <!-- HTML Editor -->
-  <div id="htmlEditorContainer" class="editor-container active">
-    <textarea id="htmlEditor" class="w-full"><%=htmlCode || predefined%></textarea>
-    <input type="hidden" name="htmlcode">
-  </div>
+          <div id="htmlEditorContainer" class="editor-container active">
+            <textarea id="htmlEditor" class="w-full"><%= htmlCode || predefined %></textarea>
+            <input type="hidden" name="htmlcode" />
+          </div>
+          <div id="cssEditorContainer" class="editor-container">
+            <textarea id="cssEditor" class="w-full"><%= codes.csscode || '' %></textarea>
+            <input type="hidden" name="csscode" />
+          </div>
+          <div id="jsEditorContainer" class="editor-container">
+            <textarea id="jsEditor" class="w-full"><%= codes.jscode || '' %></textarea>
+            <input type="hidden" name="jscode" />
+          </div>
 
-  <!-- CSS Editor -->
-  <div id="cssEditorContainer" class="editor-container">
-    
-    <textarea id="cssEditor" class="w-full"><%=codes.csscode%></textarea>
-    <input type="hidden" name="csscode">
-  </div>
+          <input type="hidden" id="userId" name="userId" value="<%= userId %>">
+          <input type="hidden" id="moduleId" name="moduleId" value="<%= M_id %>">
 
-  <!-- JS Editor -->
-  <div id="jsEditorContainer" class="editor-container">
-    <textarea id="jsEditor" class="w-full"><%=codes.jscode%></textarea>
-    <input type="hidden" name="jscode">
-  </div>
+          <div class="flex flex-wrap gap-2 my-4">
+            <button type="button" onclick="updateOutput()" class="btn-primary px-4 py-2 rounded-md flex items-center">
+              <i class="fas fa-play mr-2"></i> Run
+            </button>
+            
+          </div>
 
-  <!-- Module & User IDs -->
-  <input type="hidden" id="userId" name="userId" value="<%= userId %>">
-  <input type="hidden" id="moduleId" name="moduleId" value="<%= M_id %>">
+          <div class="flex flex-wrap gap-2">
+            <button type="submit" name="action" value="save" class="btn-primary px-4 py-2 rounded-md flex items-center">
+              <i class="fas fa-save mr-2"></i> Save Progress
+            </button>
+            <button type="submit" name="action" value="submit" class="btn-primary px-4 py-2 rounded-md flex items-center">
+              <i class="fas fa-check mr-2"></i> Submit
+            </button>
+          </div>
+        </form>
+      </div>
 
-  <!-- Buttons -->
-  <div class="flex space-x-2 mb-4">
-    <button type="button" onclick="updateOutput()" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-      Run
-    </button>
-    <span class="px-4 py-2 bg-gray-200 text-gray-700 rounded">Live Preview</span>
-  </div>
+      <!-- Right Side: Live Preview -->
+      <div class="flex-1 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+        <h2 class="text-xl font-semibold mb-4 dark:text-white">Live Preview</h2>
+        <iframe id="output" class="w-full"></iframe>
+      </div>
+    </div>
 
-  <div class="mb-4">
-    <iframe id="output" class="w-full h-64 border rounded"></iframe>
-  </div>
-
-  <!-- Submit Buttons -->
-   <!-- <form action="/Exercise/SaveProgress" method="post"> -->
-  <div class="flex space-x-2">
-    <form action="/Exercise/SaveProgress" method="post">
-  <button type="submit" onsubmit="saveProgress()" class="px-4 py-2 bg-blue-800 text-white rounded hover:bg-blue-900">
-      Save Progress
-    </button>
-<!-- </form> -->
-  </form>
-    <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">
-      Submit
-    </button>
-  </div>
-</form>
-
-
-
-        </div>
+    <!-- Instructions Section -->
+    <div class="mt-6 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+      <h2 class="text-xl font-semibold mb-4 dark:text-white">Instructions</h2>
+      <div class="prose dark:prose-invert text-gray-700 dark:text-gray-300">
+        <% modules.forEach(m => { if (m.id === M_id) { %>
+          <%= m.instructions || 'Follow the instructions provided to complete this exercise. Write your HTML, CSS, and JavaScript code in the respective editors and click "Run" to see the output.' %>
+        <% } }); %>
       </div>
     </div>
   </main>
 
   <!-- Footer -->
-  <footer class="bg-gray-800 text-white text-center py-4">
-    <div class="container mx-auto">
-      <div class="flex justify-between items-center">
-        <div class="text-xl font-bold">tls</div>
+  <footer class="bg-black text-white py-8">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
         <div>
-          <p>Contact Us</p>
-          <p>info@techlearn.com</p>
-          <p>+1 (123) 456-7890</p>
+          <h3 class="text-lg font-semibold mb-4 flex items-center">
+            <i class="fas fa-laptop-code mr-2"></i> Tech-Learn
+          </h3>
+          <p class="text-gray-400">Empowering the next generation of developers through interactive coding exercises.</p>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+          <ul class="space-y-2">
+            <li><a href="#" class="text-gray-400 hover:text-white transition">Home</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition">Courses</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition">Resources</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition">Community</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Support</h3>
+          <ul class="space-y-2">
+            <li><a href="#" class="text-gray-400 hover:text-white transition">Help Center</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition">FAQ</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition">Contact Us</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition">Feedback</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Contact</h3>
+          <p class="text-gray-400 mb-2">info@techlearn.com</p>
+          <p class="text-gray-400 mb-4">+1 (123) 456-7890</p>
+          <div class="flex space-x-4">
+            <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-facebook"></i></a>
+            <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-github"></i></a>
+          </div>
         </div>
       </div>
-      <p class="mt-2">Empowering the next generation of developers.</p>
-      <p class="mt-2">© 2025 Tech-Learn Solutions. All Rights Reserved.</p>
+      <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-400">
+        <p>© 2025 TechLearn Solutions. All rights reserved.</p>
+      </div>
     </div>
   </footer>
 
@@ -168,16 +162,24 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/xml/xml.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/css/css.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/javascript/javascript.min.js"></script>
-
   <script>
     const htmlEditor = CodeMirror.fromTextArea(document.getElementById("htmlEditor"), {
-      mode: "xml", lineNumbers: true
+      mode: "xml",
+      lineNumbers: true,
+      theme: "default",
+      autoCloseTags: true
     });
     const cssEditor = CodeMirror.fromTextArea(document.getElementById("cssEditor"), {
-      mode: "css", lineNumbers: true
+      mode: "css",
+      lineNumbers: true,
+      theme: "default",
+      autoCloseBrackets: true
     });
     const jsEditor = CodeMirror.fromTextArea(document.getElementById("jsEditor"), {
-      mode: "javascript", lineNumbers: true
+      mode: "javascript",
+      lineNumbers: true,
+      theme: "default",
+      autoCloseBrackets: true
     });
 
     function updateOutput() {
@@ -194,60 +196,44 @@
     cssEditor.on("change", updateOutput);
     jsEditor.on("change", updateOutput);
 
-    // Tab switching logic
     function showEditor(type) {
-      const editors = ['html', 'css', 'js'];
-      editors.forEach(editor => {
-        const container = document.getElementById(`${editor}EditorContainer`);
-        const tab = document.querySelector(`button[onclick="showEditor('${editor}')"]`);
-        if (editor === type) {
-          container.classList.add('active');
-          tab.classList.add('active');
+      ['html', 'css', 'js'].forEach(editor => {
+        document.getElementById(`${editor}EditorContainer`).classList.remove('active');
+        document.querySelector(`button[onclick="showEditor('${editor}')"]`).classList.remove('active');
+      });
+      document.getElementById(`${type}EditorContainer`).classList.add('active');
+      document.querySelector(`button[onclick="showEditor('${type}')"]`).classList.add('active');
+    }
+
+    function submitExercise() {
+      document.querySelector('input[name="htmlcode"]').value = htmlEditor.getValue();
+      document.querySelector('input[name="csscode"]').value = cssEditor.getValue();
+      document.querySelector('input[name="jscode"]').value = jsEditor.getValue();
+      return true;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const themeToggle = document.getElementById('theme-toggle');
+      const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+      const currentTheme = localStorage.getItem('theme');
+
+      if (currentTheme === 'dark' || (!currentTheme && prefersDarkScheme.matches)) {
+        document.body.classList.add('dark');
+        themeToggle.checked = true;
+      }
+
+      themeToggle.addEventListener('change', function() {
+        if (this.checked) {
+          document.body.classList.add('dark');
+          localStorage.setItem('theme', 'dark');
         } else {
-          container.classList.remove('active');
-          tab.classList.remove('active');
+          document.body.classList.remove('dark');
+          localStorage.setItem('theme', 'light');
         }
       });
-    }
-    
-     function submitExercise() {
-  const html = htmlEditor.getValue();
-  const css = cssEditor.getValue();
-  const js = jsEditor.getValue();
 
-  // Assign to hidden fields
-  document.querySelector('input[name="htmlcode"]').value = html;
-  document.querySelector('input[name="csscode"]').value = css;
-  document.querySelector('input[name="jscode"]').value = js;
-  
-    return true; // Allow form to submit
-}
-
-    async function saveProgress() {
-      const userId = document.getElementById("userId").value;
-      const moduleId = document.getElementById("moduleId").value;
-      const html = htmlEditor.getValue();
-      const css = cssEditor.getValue();
-      const js = jsEditor.getValue();
-
-      try {
-        const res = await fetch('/Exercise/saveProgress', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ userId, moduleId, html, css, js })
-,
-        });
-        const result =  res.json();
-        console.log("Inside sasavve eprpr")
-        if (res.ok) {
-          alert("Progress saved successfully!");
-        } else {
-          alert(result.error || "Failed to save progress.");
-        }
-      } catch (err) {
-        alert("Network error. Please try again.");
-      }
-    }
+      updateOutput(); // Initial render
+    });
   </script>
 </body>
 </html>
