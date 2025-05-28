@@ -148,6 +148,9 @@ FinalRoundProject/
 5. **Open a pull request**.
 
 ---
+# Team Members
 
+- J Srinivas
+- Ahmad
 
 © 2025 TechLearn Solutions
