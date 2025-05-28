@@ -92,7 +92,7 @@
         <form action="/Exercise/submit" method="POST" onsubmit="return submitExercise()">
   <!-- HTML Editor -->
   <div id="htmlEditorContainer" class="editor-container active">
-    <textarea id="htmlEditor" class="w-full"><%=codes.htmlcode%></textarea>
+    <textarea id="htmlEditor" class="w-full"><%=htmlCode || predefined%></textarea>
     <input type="hidden" name="htmlcode">
   </div>
 

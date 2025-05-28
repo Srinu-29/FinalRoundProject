@@ -46,6 +46,299 @@ function isAuthenticated(req, res, next) {
 }
 
 // --- Routes ---
+const allModules = [
+  {
+    id: 'html-basics',
+    name: 'The Web Awakens – Creating Your First HTML Page',
+    description: 'Every adventure begins somewhere. This one begins with your first-ever HTML page. Let\'s put it together and start your journey on the web!',
+    duration: '30 mins',
+    predefined: `<!DOCTYPE html> <!-- Declares the document type as HTML5 -->
+<html> <!-- Root element of the HTML document -->
+<head> <!-- Contains metadata and title -->
+  <title>My Web Adventure</title> <!-- Title of the webpage displayed on the browser tab -->
+</head>
+<body> <!-- The main content of the webpage -->
+
+  <!-- This is how you write a comment in HTML -->
+  <!-- Comments are ignored by the browser and used to explain code -->
+  
+  <h1>The Journey of HTML Begins</h1> <!-- Main heading for the page -->
+
+</body> <!-- End of body -->
+</html> <!-- End of HTML document -->`
+  },
+      {
+        id: 'css-styling',
+        name: 'Speak Loud and Clear – Meet the Headings!',
+        description: 'Headings are like signboards on the road. They help you organize your ideas and guide your readers. Time to try out headings from big to small.',
+        duration: '30 mins',
+        predefined:`<body> <!-- Starts the body where content is displayed --> 
+<h1>Main Title</h1> <!-- Largest heading --> 
+<h2>Subheading Level 1</h2> <!-- Second largest heading --> 
+<h6>The smallest whisper of a heading</h6> <!-- Smallest heading --> 
+</body> <!-- Ends the body -->`
+      },
+      {
+        id: 'flexbox-layout',
+        name: 'The Grocery Scroll – Unleashing Lists',
+        description: 'It\'s time to organize your pantry and cooking steps using lists! You’ll use both unordered and ordered lists to do this.',
+        duration: '40 mins',
+        predefined:`<body> 
+ 
+  <h2>My Grocery List</h2> <!-- Heading for the grocery list --> 
+  <ul> <!-- Unordered list with bullet points --> 
+    <li>Milk</li>    <!-- First list item --> 
+    <li>Eggs</li>     <!-- Second list item --> 
+    <!-- Add your favorite snack here -->  
+    <li></li> <!-- ← User adds another list item here --> 
+  </ul> 
+ 
+  <h2>Steps to Make a Sandwich</h2> <!-- Heading for the step-by-step 
+list --> 
+  <ol> <!-- Ordered list with numbers --> 
+    <li>Take two slices of bread</li> 
+    <li>Spread butter or sauce</li> 
+    <li>Place your favorite filling</li> 
+    <li>Put slices together and enjoy!</li> 
+  </ol> 
+ 
+</body> `
+      },
+      {
+        id: 'js-basics',
+        name: 'Picture Perfect – Adding an Image',
+        description: 'Images speak louder than text sometimes. Time to decorate your webpage with an image of your favorite thing!',
+        duration: '40 mins',
+        predefined:`<body> 
+ 
+  <h2>This is My Favorite Animal</h2>  <!-- Heading for the image --> 
+   
+  <img 
+src="https://unsplash.com/photos/a-girl-takes-a-photo-with-her-camera
+oGeVYS5PoEI  
+       alt="A girl with camera" width="300">  
+  <!-- Image of a girl with camera from Unsplash; replace the URL with 
+your own image link or path --> 
+ 
+  <!-- Tip for user: Replace the src with a local file path or another 
+image URL from the web --> 
+ 
+</body>`
+      },
+      {
+        id: 'dom-manipulation',
+        name: 'The Great Divide – Sections, Classes & Divs',
+        description: 'Think of your webpage like rooms in a house. Sections and divs help organize each room.',
+        duration: '50 mins',
+        predefined:`<body> 
+  <section class="about-me"> <!-- A semantic section for personal info --> 
+    <h2>About Me</h2> <!-- Section title --> 
+    <p>I am learning frontend development and loving it!</p> <!-- 
+Description inside the section --> 
+  </section> 
+ 
+  <div class="fun-facts"> <!-- A generic container for extra content --> 
+    <h3>Fun Facts</h3> <!-- Heading for fun facts --> 
+    <ul> <!-- List of fun facts --> 
+      <li>I can solve a Rubik's Cube</li> 
+      <li>I love coffee</li> 
+      <!-- Add another fun fact about yourself --> 
+      <li></li> <!-- ← User fills in their own fact --> 
+    </ul> 
+  </div> 
+ 
+</body>`
+      },
+      {
+        id: 'event-handling',
+        name: 'What is CSS?',
+        description: 'Imagine your website is a plain cake — CSS is the frosting and decorations that make it irresistible! CSS controls how your HTML looks, from colors and fonts to layouts and animations.',
+        duration: '45 mins',
+        predefined:`<!DOCTYPE html> 
+<html> 
+<head> 
+  <title>CSS Basics</title> 
+ 
+  <style> 
+    /* This styles the entire body of the webpage */ 
+    body { 
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* 
+Sets a clean font for all text */ 
+      background-color: #f0f8ff; /* Adds a light blue background */ 
+      color: #333; /* Sets default text color to dark grey */ 
+      margin: 20px; /* Adds space around the content */ 
+    } 
+ 
+    /* Style for all headings */ 
+    h1, h2 { 
+      color: #1e90ff; /* Dodger blue color for headings */ 
+    } 
+  </style> 
+</head> 
+<body> <h1>Welcome to CSS!</h1> 
+  <h2>Making websites beautiful, one style at a time</h2> 
+ 
+  <p>Notice how the background and text colors change the whole mood 
+of the page.</p> 
+ 
+</body> 
+</html> `
+
+      },
+      {
+        id: 'api-integration',
+        name: 'Styling Lists Like a Pro',
+        description: 'Lists organize your content like a neat shelf. But plain bullet points are boring! Let’s spice them up with custom colors, spacing, and styles.',
+        duration: '45 mins',
+        predefined:`<!DOCTYPE html> 
+<html> 
+<head> 
+  <title>Styled Lists</title> 
+ 
+  <style> 
+    /* Style all unordered lists */ 
+    ul { 
+      list-style-type: square; /* Changes bullets from default circles 
+to squares */ 
+      padding-left: 20px; /* Adds space on the left */ 
+      color: green; /* Changes bullet text color */ 
+      font-weight: bold; /* Makes list items bold */ 
+    } 
+ 
+    /* Style all list items */ 
+    li { 
+      margin-bottom: 10px; /* Adds space between list items */ 
+    } 
+  </style> 
+</head> 
+<body> 
+ 
+  <ul> 
+    <li>Learn HTML basics</li> 
+    <li>Master CSS styling</li> 
+    <li>Build interactive pages</li> 
+    <!-- Add your favorite item below --> 
+  </ul> 
+ 
+</body> 
+</html>`
+      },
+      {
+        id: 'form-validation',
+        name: 'Perfect Your Navbar',
+        description: 'Your navbar is your website’s compass. Let\'s style it so users can easily navigate while making it visually sleek.',
+        duration: '45 mins',
+        predefined:`<!DOCTYPE html> 
+<html> 
+<head> 
+  <title>Navbar Styling</title> 
+ 
+  <style> 
+    /* Style the navigation bar */ 
+    nav { 
+      background-color: #333; /* Dark background */ 
+      overflow: hidden; /* Clear floats */ 
+      padding: 10px 0; 
+    } 
+ 
+    /* Style the links inside the navbar */ 
+    nav a { 
+      color: white; /* White text color */ 
+      text-decoration: none; /* Remove underline */ 
+      padding: 14px 20px; /* Spacing around links */ 
+      float: left; /* Align links horizontally */ 
+      font-weight: bold; 
+      font-family: Arial, sans-serif; 
+    } 
+ 
+    /* Change link color on hover */ 
+    nav a:hover { 
+      background-color: #575757; /* Dark grey background on hover */ 
+    } 
+  </style> 
+</head> 
+<body> 
+ 
+  <nav> 
+    <a href="#">Home</a> 
+    <a href="#">About</a> 
+    <a href="#">Contact</a> 
+  </nav> 
+ 
+</body> 
+</html>`
+      },
+      {
+        id: 'local-storage',
+        name: 'Beautiful Sections with Classes and Divs',
+        description: 'Websites are like stories broken into chapters. Sections and divs help organize content — now let\'s style them!',
+        duration: '40 mins',
+        predefined:`<!DOCTYPE html> 
+<html> 
+<head> 
+  <title>Styled Sections</title> 
+ 
+  <style> 
+    /* Style all sections */ 
+    section { 
+      background-color: #e0f7fa; /* Light cyan background */ 
+      padding: 20px; /* Space inside section */ 
+      margin-bottom: 15px; /* Space below each section */ 
+      border-radius: 8px; /* Rounded corners */ 
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow */ 
+    } 
+ 
+    /* Style section headings */ 
+    section h2 { 
+      color: #00796b; /* Teal color */ 
+      font-family: 'Verdana', sans-serif; 
+    } 
+  </style> 
+</head> 
+<body> 
+ 
+  <section> 
+    <h2>About Our Journey</h2> 
+    <p>This section tells a story about learning web development.</p> 
+  </section> 
+ 
+  <section> 
+    <h2>Next Steps</h2> 
+    <p>What you will learn in the upcoming exercises.</p> 
+  </section> 
+ 
+</body> 
+</html>`
+      },
+      {
+        id: 'final-project',
+        name: 'Footer Fun',
+        description: 'The footer is like the sign-off in a letter. Let’s make it look friendly and clear with simple styling.',
+        duration: '60 mins',
+        predefined:`<!DOCTYPE html> 
+<html> 
+<head> 
+  <title>Footer Styling</title> 
+ 
+  <style> 
+    /* Style the footer element */ 
+    footer { 
+      background-color: #1e90ff; /* Dodger blue */ 
+      color: white; /* White text */ 
+      text-align: center; /* Center content */ 
+      padding: 15px 0; /* Vertical padding */ 
+      position: fixed; /* Fix footer at bottom */ 
+      width: 100%; /* Full width */ 
+      bottom: 0; /* Stick to bottom */ 
+      font-family: 'Courier New', monospace; 
+      font-weight: bold; 
+    } 
+  </style> 
+</head> 
+<body> 
+`
+      }
+    ];
 app.get('/', (req, res) => req.session.user ? res.redirect('/dashboard') : res.redirect('/signin'));
 
 app.get('/signin', (req, res) => {
@@ -114,68 +407,7 @@ console.log("JS:", req.body.jscode);
 app.post("/Exercise/:moduleId", async (req, res) => {
   const moduleId = req.params.moduleId;
 
-  const allModules = [
-      {
-        id: 'html-basics',
-        name: 'The Web Awakens – Creating Your First HTML Page',
-        description: 'Every adventure begins somewhere. This one begins with your first-ever HTML page. Let\'s put it together and start your journey on the web!',
-        duration: '30 mins'
-      },
-      {
-        id: 'css-styling',
-        name: 'Speak Loud and Clear – Meet the Headings!',
-        description: 'Headings are like signboards on the road. They help you organize your ideas and guide your readers. Time to try out headings from big to small.',
-        duration: '30 mins'
-      },
-      {
-        id: 'flexbox-layout',
-        name: 'The Grocery Scroll – Unleashing Lists',
-        description: 'It\'s time to organize your pantry and cooking steps using lists! You’ll use both unordered and ordered lists to do this.',
-        duration: '40 mins'
-      },
-      {
-        id: 'js-basics',
-        name: 'Picture Perfect – Adding an Image',
-        description: 'Images speak louder than text sometimes. Time to decorate your webpage with an image of your favorite thing!',
-        duration: '40 mins'
-      },
-      {
-        id: 'dom-manipulation',
-        name: 'The Great Divide – Sections, Classes & Divs',
-        description: 'Think of your webpage like rooms in a house. Sections and divs help organize each room.',
-        duration: '50 mins'
-      },
-      {
-        id: 'event-handling',
-        name: 'What is CSS?',
-        description: 'Imagine your website is a plain cake — CSS is the frosting and decorations that make it irresistible! CSS controls how your HTML looks, from colors and fonts to layouts and animations.',
-        duration: '45 mins'
-      },
-      {
-        id: 'api-integration',
-        name: 'Styling Lists Like a Pro',
-        description: 'Lists organize your content like a neat shelf. But plain bullet points are boring! Let’s spice them up with custom colors, spacing, and styles.',
-        duration: '45 mins'
-      },
-      {
-        id: 'form-validation',
-        name: 'Perfect Your Navbar',
-        description: 'Your navbar is your website’s compass. Let\'s style it so users can easily navigate while making it visually sleek.',
-        duration: '45 mins'
-      },
-      {
-        id: 'local-storage',
-        name: 'Beautiful Sections with Classes and Divs',
-        description: 'Websites are like stories broken into chapters. Sections and divs help organize content — now let\'s style them!',
-        duration: '40 mins'
-      },
-      {
-        id: 'final-project',
-        name: 'Footer Fun',
-        description: 'The footer is like the sign-off in a letter. Let’s make it look friendly and clear with simple styling.',
-        duration: '60 mins'
-      }
-    ];
+  
 
   try {
     if (!req.session.user) return res.redirect("/signin");
@@ -217,68 +449,7 @@ app.get('/Exercise/:moduleId', isAuthenticated, async (req, res) => {
     }
 
     const moduleId = req.params.moduleId;
-    const allModules = [
-      {
-        id: 'html-basics',
-        name: 'The Web Awakens – Creating Your First HTML Page',
-        description: 'Every adventure begins somewhere. This one begins with your first-ever HTML page. Let\'s put it together and start your journey on the web!',
-        duration: '30 mins'
-      },
-      {
-        id: 'css-styling',
-        name: 'Speak Loud and Clear – Meet the Headings!',
-        description: 'Headings are like signboards on the road. They help you organize your ideas and guide your readers. Time to try out headings from big to small.',
-        duration: '30 mins'
-      },
-      {
-        id: 'flexbox-layout',
-        name: 'The Grocery Scroll – Unleashing Lists',
-        description: 'It\'s time to organize your pantry and cooking steps using lists! You’ll use both unordered and ordered lists to do this.',
-        duration: '40 mins'
-      },
-      {
-        id: 'js-basics',
-        name: 'Picture Perfect – Adding an Image',
-        description: 'Images speak louder than text sometimes. Time to decorate your webpage with an image of your favorite thing!',
-        duration: '40 mins'
-      },
-      {
-        id: 'dom-manipulation',
-        name: 'The Great Divide – Sections, Classes & Divs',
-        description: 'Think of your webpage like rooms in a house. Sections and divs help organize each room.',
-        duration: '50 mins'
-      },
-      {
-        id: 'event-handling',
-        name: 'What is CSS?',
-        description: 'Imagine your website is a plain cake — CSS is the frosting and decorations that make it irresistible! CSS controls how your HTML looks, from colors and fonts to layouts and animations.',
-        duration: '45 mins'
-      },
-      {
-        id: 'api-integration',
-        name: 'Styling Lists Like a Pro',
-        description: 'Lists organize your content like a neat shelf. But plain bullet points are boring! Let’s spice them up with custom colors, spacing, and styles.',
-        duration: '45 mins'
-      },
-      {
-        id: 'form-validation',
-        name: 'Perfect Your Navbar',
-        description: 'Your navbar is your website’s compass. Let\'s style it so users can easily navigate while making it visually sleek.',
-        duration: '45 mins'
-      },
-      {
-        id: 'local-storage',
-        name: 'Beautiful Sections with Classes and Divs',
-        description: 'Websites are like stories broken into chapters. Sections and divs help organize content — now let\'s style them!',
-        duration: '40 mins'
-      },
-      {
-        id: 'final-project',
-        name: 'Footer Fun',
-        description: 'The footer is like the sign-off in a letter. Let’s make it look friendly and clear with simple styling.',
-        duration: '60 mins'
-      }
-    ];
+    
 
     const currentModule = allModules.find(m => m.id === moduleId);
     if (!currentModule) {
@@ -293,7 +464,7 @@ app.get('/Exercise/:moduleId', isAuthenticated, async (req, res) => {
         moduleId,
         ModuleCompleted: "started",
         codes: {
-          htmlcode: "",
+          htmlcode: currentModule.predefined || "",
           csscode: "",
           jscode: ""
         }
@@ -311,10 +482,11 @@ app.get('/Exercise/:moduleId', isAuthenticated, async (req, res) => {
       M_id: moduleId,
       userId: userId,
       codes: userModule.codes,
-      htmlCode: userModule.codes.htmlcode,
+      htmlCode: userModule.codes.htmlcode || currentModule.predefined || "",
       cssCode: userModule.codes.csscode,
       jsCode: userModule.codes.jscode,
-      ModuleCompleted: ModuleCompleted
+      ModuleCompleted: ModuleCompleted,
+      predefined: currentModule.predefined || "",
     });
   } catch (err) {
     console.error('Exercise page error:', err.stack);
@@ -332,68 +504,7 @@ app.get('/dashboard', isAuthenticated, async (req, res) => {
       return res.status(404).send('User not found');
     }
 
-    const allModules = [
-  {
-    id: 'html-basics',
-    name: 'The Web Awakens – Creating Your First HTML Page',
-    description: 'Every adventure begins somewhere. This one begins with your first-ever HTML page. Let\'s put it together and start your journey on the web!',
-    duration: '30 mins'
-  },
-  {
-    id: 'css-styling',
-    name: 'Speak Loud and Clear – Meet the Headings!',
-    description: 'Headings are like signboards on the road. They help you organize your ideas and guide your readers. Time to try out headings from big to small.',
-    duration: '30 mins'
-  },
-  {
-    id: 'flexbox-layout',
-    name: 'The Grocery Scroll – Unleashing Lists',
-    description: 'It\'s time to organize your pantry and cooking steps using lists! You’ll use both unordered and ordered lists to do this.',
-    duration: '40 mins'
-  },
-  {
-    id: 'js-basics',
-    name: 'Picture Perfect – Adding an Image',
-    description: 'Images speak louder than text sometimes. Time to decorate your webpage with an image of your favorite thing!',
-    duration: '40 mins'
-  },
-  {
-    id: 'dom-manipulation',
-    name: 'The Great Divide – Sections, Classes & Divs',
-    description: 'Think of your webpage like rooms in a house. Sections and divs help organize each room.',
-    duration: '50 mins'
-  },
-  {
-    id: 'event-handling',
-    name: 'What is CSS?',
-    description: 'Imagine your website is a plain cake — CSS is the frosting and decorations that make it irresistible! CSS controls how your HTML looks, from colors and fonts to layouts and animations.',
-    duration: '45 mins'
-  },
-  {
-    id: 'api-integration',
-    name: 'Styling Lists Like a Pro',
-    description: 'Lists organize your content like a neat shelf. But plain bullet points are boring! Let’s spice them up with custom colors, spacing, and styles.',
-    duration: '45 mins'
-  },
-  {
-    id: 'form-validation',
-    name: 'Perfect Your Navbar',
-    description: 'Your navbar is your website’s compass. Let\'s style it so users can easily navigate while making it visually sleek.',
-    duration: '45 mins'
-  },
-  {
-    id: 'local-storage',
-    name: 'Beautiful Sections with Classes and Divs',
-    description: 'Websites are like stories broken into chapters. Sections and divs help organize content — now let\'s style them!',
-    duration: '40 mins'
-  },
-  {
-    id: 'final-project',
-    name: 'Footer Fun',
-    description: 'The footer is like the sign-off in a letter. Let’s make it look friendly and clear with simple styling.',
-    duration: '60 mins'
-  }
-];
+    
 
 
 
@@ -595,68 +706,7 @@ app.post('/signup', async (req, res) => {
     }
 
     const hashedPassword = await bcrypt.hash(password.trim(), 10);
-const allModules = [
-  {
-    id: 'html-basics',
-    name: 'The Web Awakens – Creating Your First HTML Page',
-    description: 'Every adventure begins somewhere. This one begins with your first-ever HTML page. Let\'s put it together and start your journey on the web!',
-    duration: '30 mins'
-  },
-  {
-    id: 'css-styling',
-    name: 'Speak Loud and Clear – Meet the Headings!',
-    description: 'Headings are like signboards on the road. They help you organize your ideas and guide your readers. Time to try out headings from big to small.',
-    duration: '30 mins'
-  },
-  {
-    id: 'flexbox-layout',
-    name: 'The Grocery Scroll – Unleashing Lists',
-    description: 'It\'s time to organize your pantry and cooking steps using lists! You’ll use both unordered and ordered lists to do this.',
-    duration: '40 mins'
-  },
-  {
-    id: 'js-basics',
-    name: 'Picture Perfect – Adding an Image',
-    description: 'Images speak louder than text sometimes. Time to decorate your webpage with an image of your favorite thing!',
-    duration: '40 mins'
-  },
-  {
-    id: 'dom-manipulation',
-    name: 'The Great Divide – Sections, Classes & Divs',
-    description: 'Think of your webpage like rooms in a house. Sections and divs help organize each room.',
-    duration: '50 mins'
-  },
-  {
-    id: 'event-handling',
-    name: 'What is CSS?',
-    description: 'Imagine your website is a plain cake — CSS is the frosting and decorations that make it irresistible! CSS controls how your HTML looks, from colors and fonts to layouts and animations.',
-    duration: '45 mins'
-  },
-  {
-    id: 'api-integration',
-    name: 'Styling Lists Like a Pro',
-    description: 'Lists organize your content like a neat shelf. But plain bullet points are boring! Let’s spice them up with custom colors, spacing, and styles.',
-    duration: '45 mins'
-  },
-  {
-    id: 'form-validation',
-    name: 'Perfect Your Navbar',
-    description: 'Your navbar is your website’s compass. Let\'s style it so users can easily navigate while making it visually sleek.',
-    duration: '45 mins'
-  },
-  {
-    id: 'local-storage',
-    name: 'Beautiful Sections with Classes and Divs',
-    description: 'Websites are like stories broken into chapters. Sections and divs help organize content — now let\'s style them!',
-    duration: '40 mins'
-  },
-  {
-    id: 'final-project',
-    name: 'Footer Fun',
-    description: 'The footer is like the sign-off in a letter. Let’s make it look friendly and clear with simple styling.',
-    duration: '60 mins'
-  }
-];
+
 const modules = allModules.map(m => ({
   moduleId: m.id,
   ModuleCompleted: "not started",
@@ -714,7 +764,16 @@ app.post('/signin', async (req, res) => {
   try {
     const user = await User.findOne({ email: trimmedEmail });
     // If old user doesn't have modules, initialize them
-if (!user.modules || user.modules.length === 0) {
+
+
+  if (!user || !await bcrypt.compare(trimmedPassword, user.password)) {
+    return res.render("signin", {
+      error: "Invalid email or password",
+      signupError: false,
+      passwordErrors: [],
+      name: '', email: '', mobile_number: '', gender: ''
+    });
+  if (!user.modules || user.modules.length === 0) {
   const allModules = [
     { id: 'html-basics' },
     { id: 'css-styling' },
@@ -740,15 +799,6 @@ if (!user.modules || user.modules.length === 0) {
 
   await user.save();
 }
-
-  if (!user || !await bcrypt.compare(trimmedPassword, user.password)) {
-    return res.render("signin", {
-      error: "Invalid email or password",
-      signupError: false,
-      passwordErrors: [],
-      name: '', email: '', mobile_number: '', gender: ''
-    });
-  
     }
     console.log("User Password",user.password);
     console.log("my Password",password)
@@ -781,7 +831,7 @@ console.log("Trimmed password:", req.body.password?.trim());
   } catch (error) {
     console.error("Signin error:", error.stack);
     res.render("signin", {
-      error: "Server error: " + error.message,
+      error: "Server error: " ,
       signupError: false,
       passwordErrors: [],
       name: '', email: '', mobile_number: '', gender: ''
