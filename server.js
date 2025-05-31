@@ -613,7 +613,7 @@ app.post("/Exercise/saveProgress", async (req, res) => {
     console.log("HTML:", req.body.htmlcode);
 console.log("CSS:", req.body.csscode);
 console.log("JS:", req.body.jscode);
-const action="started";
+const action="";
 
     // Validate required fields
     console.log("inside exercise/saveprogress");
@@ -633,13 +633,13 @@ const action="started";
       module = {
         moduleId,
         codes: { htmlcode, csscode, jscode },
-        ModuleCompleted: action === "submit" ? "completed" : "started"
+        ModuleCompleted:  "started"
       };
       user.modules.push(module);
     } else {
       // Update existing module
       module.codes = { htmlcode, csscode, jscode };
-      module.ModuleCompleted = action === "submit" ? "completed" : "started"
+      module.ModuleCompleted = action === "started"
     }
 
     await user.save();
@@ -885,10 +885,10 @@ app.get('/Exercises', isAuthenticated, async (req, res) => {
 
     let module = user.modules.find(m => m.moduleId === moduleId);
     if (!module) {
-      user.modules.push({ moduleId, status: 'In Progress' });
+      user.modules.push({ moduleId, status: 'started' });
       await user.save();
-    } else if (module.status === 'Not Started') {
-      module.status = 'In Progress';
+    } else if (module.status === 'not started') {
+      module.status = 'started';
       await user.save();
     }
 
