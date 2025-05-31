@@ -355,7 +355,7 @@ app.get('/signin', (req, res) => {
 });
 app.post('/Exercise/submit', isAuthenticated, async (req, res) => {
   try {
-    const { htmlcode, csscode, jscode, moduleId } = req.body;
+    const {action, htmlcode, csscode, jscode, moduleId } = req.body;
     const userId = req.session.user.id; // Always use session ID for security
     console.log("HTML:", req.body.htmlcode);
 console.log("CSS:", req.body.csscode);
@@ -379,14 +379,15 @@ console.log("JS:", req.body.jscode);
       module = {
         moduleId,
         codes: { htmlcode, csscode, jscode },
-        ModuleCompleted: "completed"
+        ModuleCompleted: action ==="submit" ? "completed":"started"
       };
       user.modules.push(module);
     } else {
-      // Update existing module
-      module.codes = { htmlcode, csscode, jscode };
-      module.ModuleCompleted = "completed";
-    }
+  // Update existing module
+  module.codes = { htmlcode, csscode, jscode };
+  module.ModuleCompleted = action === "submit" ? "completed" : "started";
+}
+
 
     await user.save();
 
@@ -606,55 +607,8 @@ app.post('/profile/Bioupdate', isAuthenticated, async (req, res) => {
   }
 });
 
-app.post("/Exercise/saveProgress", async (req, res) => {
-  try {
-    const { htmlcode, csscode, jscode, moduleId } = req.body;
-    const userId = req.session.user.id; // Always use session ID for security
-    console.log("HTML:", req.body.htmlcode);
-console.log("CSS:", req.body.csscode);
-console.log("JS:", req.body.jscode);
-const action="";
 
-    // Validate required fields
-    console.log("inside exercise/saveprogress");
 
-    // Find user (using session ID, not body input)
-    const user = await User.findById(userId);
-    if (!user) {
-      req.session.error = 'User not found';
-      return res.redirect('/signin');
-    }
-
-    // Find or create module progress
-    let module = user.modules.find(m => m.moduleId === moduleId);
-    
-    if (!module) {
-      // Create new module entry if doesn't exist
-      module = {
-        moduleId,
-        codes: { htmlcode, csscode, jscode },
-        ModuleCompleted:  "started"
-      };
-      user.modules.push(module);
-    } else {
-      // Update existing module
-      module.codes = { htmlcode, csscode, jscode };
-      module.ModuleCompleted = action === "started"
-    }
-
-    await user.save();
-
-    // Set success message
-    req.session.message = 'Exercise submitted successfully!';
-    res.redirect('/dashboard');
-  } catch (error) {
-    console.error("Error in /exercise/submit:", error);
-    req.session.error = 'An error occurred while submitting the exercise';
-    
-    // Safe redirect with fallback
-    
-  }
-});
 
 app.get('/logout', (req, res) => {
   req.session.destroy(err => {

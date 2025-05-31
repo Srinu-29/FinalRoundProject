@@ -212,38 +212,46 @@
         </div>
 
         <form action="/Exercise/submit" method="POST" onsubmit="return submitExercise()">
-          <div id="htmlEditorContainer" class="editor-container active">
-            <textarea id="htmlEditor" class="w-full"><%= htmlCode || predefined %></textarea>
-            <input type="hidden" name="htmlcode" />
-          </div>
-          <div id="cssEditorContainer" class="editor-container">
-            <textarea id="cssEditor" class="w-full"><%= codes.csscode || '' %></textarea>
-            <input type="hidden" name="csscode" />
-          </div>
-          <div id="jsEditorContainer" class="editor-container">
-            <textarea id="jsEditor" class="w-full"><%= codes.jscode || '' %></textarea>
-            <input type="hidden" name="jscode" />
-          </div>
+  <!-- HTML Editor -->
+  <div id="htmlEditorContainer" class="editor-container active">
+    <textarea id="htmlEditor" class="w-full"><%= htmlCode || predefined %></textarea>
+    <input type="hidden" name="htmlcode" />
+  </div>
 
-          <input type="hidden" id="userId" name="userId" value="<%= userId %>">
-          <input type="hidden" id="moduleId" name="moduleId" value="<%= M_id %>">
+  <!-- CSS Editor -->
+  <div id="cssEditorContainer" class="editor-container">
+    <textarea id="cssEditor" class="w-full"><%= codes.csscode || '' %></textarea>
+    <input type="hidden" name="csscode" />
+  </div>
 
-          <div class="flex flex-wrap gap-2 my-4">
-            <button type="button" onclick="updateOutput()" class="btn-primary px-4 py-2 rounded-md flex items-center">
-              <i class="fas fa-play mr-2"></i> Run
-            </button>
-            
-          </div>
+  <!-- JS Editor -->
+  <div id="jsEditorContainer" class="editor-container">
+    <textarea id="jsEditor" class="w-full"><%= codes.jscode || '' %></textarea>
+    <input type="hidden" name="jscode" />
+  </div>
 
-          <div class="flex flex-wrap gap-2">
-            <button type="submit" name="action" value="save" class="btn-primary px-4 py-2 rounded-md flex items-center">
-              <i class="fas fa-save mr-2"></i> Save Progress
-            </button>
-            <button type="submit" name="action" value="submit" class="btn-primary px-4 py-2 rounded-md flex items-center">
-              <i class="fas fa-check mr-2"></i> Submit
-            </button>
-          </div>
-        </form>
+  <!-- Hidden Inputs -->
+  <input type="hidden" id="userId" name="userId" value="<%= userId %>">
+  <input type="hidden" id="moduleId" name="moduleId" value="<%= M_id %>">
+
+  <!-- Run Button -->
+  <div class="flex flex-wrap gap-2 my-4">
+    <button type="button" onclick="updateOutput()" class="btn-primary px-4 py-2 rounded-md flex items-center">
+      <i class="fas fa-play mr-2"></i> Run
+    </button>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="flex flex-wrap gap-2">
+    <button type="submit" name="action" value="save" class="px-4 py-2 bg-blue-800 text-white rounded hover:bg-blue-900">
+      Save Progress
+    </button>
+    <button type="submit" name="action" value="submit" class="btn-primary px-4 py-2 rounded-md flex items-center">
+      <i class="fas fa-check mr-2"></i> Submit
+    </button>
+  </div>
+</form>
+
       </div>
 
       <!-- Right Side: Live Preview -->
@@ -365,6 +373,7 @@
       return true;
     }
 
+
     document.addEventListener('DOMContentLoaded', () => {
       const themeToggle = document.getElementById('theme-toggle');
       const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
@@ -384,7 +393,7 @@
           localStorage.setItem('theme', 'light');
         }
       });
-
+ 
       updateOutput(); // Initial render
     });
   </script>
